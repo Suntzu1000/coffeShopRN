@@ -22,7 +22,7 @@ export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState();
 
     return (
-      <View className="flex-1 relative bg-white">
+      <View className="flex-1 relative bg-white pt-10">
         <StatusBar />
         <Image
           source={require("../assets/images/beansBackground1.png")}

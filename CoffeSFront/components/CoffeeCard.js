@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { themeColors } from "../theme";
 import { PlusIcon } from "react-native-heroicons/outline";
+import { StarIcon } from "react-native-heroicons/solid";
 
 export default function CoffeeCard({ item }) {
   return (
@@ -32,7 +33,7 @@ export default function CoffeeCard({ item }) {
           style={{ backgroundColor: "rgba(255, 255, 255, 0.25)" }}
           className="flex-row items-center rounded-3xl p-1 px-2 space-x-1 w-16"
         >
-          <StartIcon size="15" color="white" />
+          <StarIcon size="15" color="white" />
           <Text className="text-base font-semibold text-white">
             {item.stars}
           </Text>
