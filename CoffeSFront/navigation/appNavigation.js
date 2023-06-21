@@ -6,8 +6,17 @@ import { Dimensions, LogBox, Platform, Text, View } from "react-native";
 import { themeColors } from "../theme";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-/*import {HomeIcon as HomeOutline, HeartIcon as HeartOutline, ShoppingBagIcon as BagOutline } from 'react-native-heroicons/outline';
-import {HomeIcon as HomeSolid, HeartIcon as HeartSolid, ShoppingBagIcon as BagSolid} from 'react-native-heroicons/solid';*/
+import {
+  HomeIcon as HomeOutline,
+  HeartIcon as HeartOutline,
+  ShoppingBagIcon as BagOutline,
+} from "react-native-heroicons/outline";
+import {
+  HomeIcon as HomeSolid,
+  HeartIcon as HeartSolid,
+  ShoppingBagIcon as BagSolid,
+} from "react-native-heroicons/solid";
+import ProductScreen from "../screens/ProductScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,6 +38,11 @@ export default function AppNavigation() {
           options={{ headerShown: false }}
           component={HomeTabs}
         />
+        <Stack.Screen
+          name="Produto"
+          options={{ headerShown: false }}
+          component={ProductScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -37,11 +51,18 @@ export default function AppNavigation() {
 function HomeTabs() {
   return (
     <Tab.Navigator
-      screenOptions={({ router }) => ({
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarIcon: ({ focused}) => menuIcons(route, focused),
         tabBarStyle: {
           marginBottom: 20,
+          marginRadius: 50,
+          backgroundColor: themeColors.bgLight,
+          marginHorizontal: 20,
+        },
+        tabBarStyle: {
+          marginTop: ios? 30: 0,
         },
       })}
     >
@@ -51,3 +72,32 @@ function HomeTabs() {
     </Tab.Navigator>
   );
 }
+
+const menuIcons = (route, focused) => {
+  let icon;
+  if (route.name === "home") {
+    icon = focused ? (
+      <HomeSolid size="30" color={themeColors.bgLight} />
+    ) : (
+      <HomeOutline size="30" strokeWidth={2} color="white" />
+    );
+  } else if (route.name === "favoritos") {
+    icon = focused ? (
+      <HeartSolid size="30" color={themeColors.bgLight} />
+    ) : (
+      <HeartOutline size="30" strokeWidth={2} color="white" />
+    );
+  } else if (route.name === "carrinho") {
+    icon = focused ? (
+      <BagSolid size="30" color={themeColors.bgLight} />
+    ) : (
+      <BagOutline size="30" strokeWidth={2} color="white" />
+    );
+  }
+  let buttonClass = focused ? "bg-white" : "";
+  return (
+    <View className={"flex items-center rounded-full p-3 shadow" + buttonClass}>
+      {icon}
+    </View>
+  );
+};
